@@ -1,0 +1,26 @@
+create table RESEARCH (
+    Unique_Research_No varchar2 (10) primary key,
+    reaserch_name varchar2 (10) unique,
+    constraint urno check(Unique_Research_No like 'Ind_%')
+);
+
+create table SCIENTIST (
+    sc_code varchar2 (5) primary key,
+    scientist_name varchar2 (15) not null,
+    salary number (7, 2),
+    birth_date date,
+    join_date date,
+    research_code varchar2 (10) ,
+    city varchar2 (15),
+    constraint chk_sc_code check (sc_code like 'SR%A' OR sc_code like 'SR%B' OR sc_code like 'SR%C'),
+    foreign key (research_code) references RESEARCH(Unique_Research_No),
+    constraint chk_join_date check(extract(year from join_date) between 2000 and 2008),
+    constraint chk_birth_date check (birth_date <= date '1980-01-01'),
+    constraint chk_salary check (salary between 45000 and 80000),
+    constraint chk_city check (city in ('Salt Lake','Noida','Gurgaon','Chennai','Bengaluru','Pune'))
+)
+
+select scientist_name from SCIENTIST where scientist_name like 'P%' AND length(scientist_name)>=5;
+select scientist_name from SCIENTIST where extract (month from birth_date)=extract (month from join_date)
+select scientist_name,extract(day from join_date) from SCIENTIST 
+select scientist_name,join_date,next_day(join_date,'wednesday') from scientist

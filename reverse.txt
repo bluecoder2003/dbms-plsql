@@ -1,0 +1,16 @@
+DECLARE
+    str VARCHAR2(10);
+    ans VARCHAR2(10) := '';
+    n NUMBER;
+BEGIN
+    str := '&str';
+    n := LENGTH(str);
+
+    FOR i IN REVERSE 1..n LOOP
+        ans := ans || SUBSTR(str, i, 1);
+    END LOOP;
+
+    DBMS_OUTPUT.PUT_LINE('Original String: ' || str);
+    DBMS_OUTPUT.PUT_LINE('Reversed String: ' || ans);
+END;
+/

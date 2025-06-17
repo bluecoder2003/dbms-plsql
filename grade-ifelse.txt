@@ -1,0 +1,11 @@
+declare
+marks number:=67;
+grade varchar2(10);
+begin
+   if marks>90 then grade:= 'A';
+   elsif marks>70 then grade:='B';
+   else grade:='C';
+   end if;
+dbms_output.put_line(grade);
+end;
+/

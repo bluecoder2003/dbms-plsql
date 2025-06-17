@@ -1,0 +1,11 @@
+declare
+total number:=0;
+counter number:=1;
+begin
+   while counter<=5 loop
+   total:=total+counter;
+   counter:=counter+1;
+   end loop;
+   dbms_output.put_line(total);
+end;
+/

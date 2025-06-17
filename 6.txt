@@ -1,0 +1,66 @@
+create table DEPARTMENT 
+( 
+    Dept_Name varchar2(30), 
+    Dept_Num number(10) PRIMARY KEY, 
+    MGR_SSN number(10)
+);
+create table EMPLOY
+(
+    EName varchar2(30), 
+    SSN_No number(10) PRIMARY KEY, 
+    DoB Date, 
+    City varchar2(30), 
+    Sex Char(1), 
+    Salary number(10), 
+    Manager_SSN number(10), 
+    Dept_No number(10),
+    FOREIGN KEY (Dept_No) REFERENCES DEPARTMENT(Dept_Num)
+);
+create table WORKS_ON 
+(
+    SSN_Num number(10) , 
+    Project varchar2(30) , 
+    Hours number(10),
+    PRIMARY KEY (SSN_Num,Project),
+    FOREIGN KEY (SSN_Num) REFERENCES EMPLOY(SSN_No)
+);
+
+
+
+insert into DEPARTMENT VALUES('research',1,45892);
+insert into DEPARTMENT VALUES('tech',2,45893);
+insert into DEPARTMENT VALUES('finance',3,45894);
+insert into DEPARTMENT VALUES('econ',4,45895);
+insert into DEPARTMENT VALUES('social',5,45896);
+
+INSERT INTO EMPLOY VALUES ('john', 45978, DATE '1989-02-20', 'kolkata', 'M', 7000, NULL, 1);
+INSERT INTO EMPLOY VALUES ('Alice Johnson', 12345, DATE '1980-03-20', 'Boston', 'F', 75000, NULL, 1);
+INSERT INTO EMPLOY VALUES ('Bob Wilson', 23456, DATE '1982-07-10', 'Chicago', 'M', 65000, 12345, 2);
+INSERT INTO EMPLOY VALUES ('Carol Davis', 34567, DATE '1979-11-25', 'Miami', 'F', 70000, 12345, 3);
+INSERT INTO EMPLOY VALUES ('David Brown', 45678, DATE '1983-05-30', 'Seattle', 'M', 60000, 12345, 4);
+INSERT INTO EMPLOY VALUES ('Eve Miller', 56789, DATE '1981-09-18', 'Denver', 'F', 55000, 34567, 5);
+INSERT INTO EMPLOY VALUES ('Frank Taylor', 67890, DATE '1984-12-05', 'Atlanta', 'M', 45000, 45678, 1);
+INSERT INTO EMPLOY VALUES ('Grace Lee', 78901, DATE '1986-02-14', 'Portland', 'F', 50000, 23456, 2);
+
+INSERT INTO WORKS_ON VALUES (45978,1,20);
+INSERT INTO WORKS_ON VALUES (45978, 2, 15);
+INSERT INTO WORKS_ON VALUES (12345, 1, 25);
+INSERT INTO WORKS_ON VALUES (23456, 3, 30);
+
+c) select e.EName, e.City
+from EMPLOY e
+join DEPARTMENT d
+on e.Dept_No=d.Dept_Num 
+where d.Dept_Name='research';
+
+d)select d.Dept_Num,count(e.SSN_No) as num_employees,avg(e.Salary) as avg_salary
+from department d 
+left join employ e
+on d.Dept_Num=e.Dept_No
+group by d.DEPT_NUM
+
+f)select e.EName,e.salary 
+from employ e
+where e.salary>(select max(salary) from employ where Dept_No=5) 
+
+g)select to_char(sysdate,'dd"th" month year:hh:mi am')as formatted_datetime from dual;

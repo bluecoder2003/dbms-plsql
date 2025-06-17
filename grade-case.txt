@@ -1,0 +1,13 @@
+declare
+value number:=2;
+day varchar2(10);
+begin
+   case value
+   when 0 then day:='sunday';
+   when 1 then day:='monday';
+   when 2 then day:='tuesday';
+   else dbms_output.put_line('unknown');
+   end case;
+   dbms_output.put_line(day);
+end;
+/

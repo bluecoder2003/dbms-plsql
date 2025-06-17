@@ -1,0 +1,17 @@
+begin
+   execute immediate 'create table emp(eid number,ename varchar2(10))';
+   dbms_output.put_line('table created');
+end;
+/
+
+begin
+   execute immediate 'delete from emp where eid=10';
+   dbms_output.put_line('deleted');
+end;
+/
+
+begin
+   update emp set ename='happy' where eid=20;
+   dbms_output.put_line('deleted');
+end;
+/

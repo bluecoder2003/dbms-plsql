@@ -1,0 +1,19 @@
+DECLARE
+    s sailor.sid%TYPE;
+    n sailor.name%TYPE;
+    a sailor.age%TYPE;
+    r sailor.rating%TYPE;
+BEGIN
+    s := &sid;
+    BEGIN
+        SELECT name, age, rating INTO n, a, r FROM sailor WHERE sid = s;
+        DBMS_OUTPUT.PUT_LINE('SID: ' || s);
+        DBMS_OUTPUT.PUT_LINE('Name: ' || n);
+        DBMS_OUTPUT.PUT_LINE('Age: ' || a);
+        DBMS_OUTPUT.PUT_LINE('Rating: ' || r);
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            DBMS_OUTPUT.PUT_LINE('No sailor found with SID: ' || s);
+    END;
+END;
+/
